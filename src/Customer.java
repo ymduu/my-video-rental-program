@@ -37,6 +37,24 @@ public class Customer {
         return result;
     }
     
+    public String htmlStatement() {
+        Iterator<Rental> rentals = _rentals.iterator();
+        String result = "<h1>Rental Record for <em>" + getName() + "</em></h1>\n";
+        result += "<ul>\n";
+        while (rentals.hasNext()) {
+            Rental each = rentals.next();
+            // show figures for this rental
+            result += "<li>" + each.getMovie().getTitle() + ": " + String.valueOf(each.getCharge()) + "</li>\n";
+        }
+        result += "</ul>\n";
+
+        // add footer lines
+        result += "<p>Amount owed is <em>" + String.valueOf(getTotalCharge()) + "</em></p>\n";
+        result += "<p>You earned <em>" + String.valueOf(getFrequentRenterPoints()) + "</em> frequent renter points</p>";
+
+        return result;
+    }
+    
     public double getTotalCharge() {
         double result = 0;
         Iterator<Rental> rentals = _rentals.iterator();

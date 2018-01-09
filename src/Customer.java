@@ -22,9 +22,12 @@ public class Customer {
     public String statement() {
         Iterator<Rental> rentals = _rentals.iterator();
         String result = "Rental Record for " + getName() + "\n";
+        int frequentRenterPoints = 0;
 
         while (rentals.hasNext()) {
             Rental each = rentals.next();
+
+            frequentRenterPoints += each.getFrequentRenterPoints();
 
             // show figures for this rental
             result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
@@ -32,7 +35,7 @@ public class Customer {
 
         // add footer lines
         result += "Amount owed is " + String.valueOf(getTotalCharge()) + "\n";
-        result += "You earned " + String.valueOf(getFrequentRenterPoints()) + " frequent renter points";
+        result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
 
         return result;
     }
@@ -40,9 +43,12 @@ public class Customer {
     public String htmlStatement() {
         Iterator<Rental> rentals = _rentals.iterator();
         String result = "<h1>Rental Record for <em>" + getName() + "</em></h1>\n";
+        int frequentRenterPoints = 0;
         result += "<ul>\n";
         while (rentals.hasNext()) {
             Rental each = rentals.next();
+
+            frequentRenterPoints += each.getFrequentRenterPoints();
             // show figures for this rental
             result += "<li>" + each.getMovie().getTitle() + ": " + String.valueOf(each.getCharge()) + "</li>\n";
         }
@@ -50,7 +56,7 @@ public class Customer {
 
         // add footer lines
         result += "<p>Amount owed is <em>" + String.valueOf(getTotalCharge()) + "</em></p>\n";
-        result += "<p>You earned <em>" + String.valueOf(getFrequentRenterPoints()) + "</em> frequent renter points</p>";
+        result += "<p>You earned <em>" + String.valueOf(frequentRenterPoints) + "</em> frequent renter points</p>";
 
         return result;
     }
@@ -65,13 +71,4 @@ public class Customer {
         return result;
     }
 
-    public int getFrequentRenterPoints() {
-        int result = 0;
-        Iterator<Rental> rentals = _rentals.iterator();
-        while (rentals.hasNext()) {
-            Rental each = rentals.next();
-            result += each.getFrequentRenterPoints();
-        }
-        return result;
-    }
 }

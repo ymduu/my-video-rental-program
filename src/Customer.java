@@ -21,6 +21,7 @@ public class Customer {
 
     public String statement() {
         double totalAmount = 0;
+        double thisAmount = 0;
         int frequentRenterPoints = 0;
 
         Iterator<Rental> rentals = _rentals.iterator();
@@ -28,11 +29,12 @@ public class Customer {
 
         while (rentals.hasNext()) {
             Rental each = rentals.next();
+            thisAmount += each.getCharge();
             frequentRenterPoints += each.getFrequentRenterPoints();
 
             // show figures for this rental
-            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(each.getCharge()) + "\n";
-            totalAmount += each.getCharge();
+            result += "\t" + each.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + "\n";
+            totalAmount += thisAmount;
         }
 
         // add footer lines

@@ -40,7 +40,7 @@ public class Rental {
 
     int getFrequentRenterPoints(int frequentRenterPoints, Rental each) {
         frequentRenterPoints++;
-        if ((each.getPriceCode() == Movie.NEW_RELEASE) && getDaysRented() > 1) {
+        if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && getDaysRented() > 1) {
             frequentRenterPoints++;
         }
         return frequentRenterPoints;
